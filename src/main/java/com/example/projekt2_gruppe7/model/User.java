@@ -1,18 +1,19 @@
 package com.example.projekt2_gruppe7.model;
 
 public class User {
-    private int id;
+    private Long id;
     private String name;
     private String email;
     private String password;
+    private List<WishList> wishLists;
 
-    public User(int id, String name, String email, String password) {
-        this.id = id;
+    public User(String name, String email, String password, List<WishList> wishLists) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.wishLists = wishLists;
     }
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -28,7 +29,7 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
