@@ -5,7 +5,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private List<WishList> wishLists;
+
 
     public User(String name, String email, String password, List<WishList> wishLists) {
         this.name = name;
