@@ -1,26 +1,75 @@
 package com.example.projekt2_gruppe7.repository;
 
 import com.example.projekt2_gruppe7.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import java.sql.*;
+import javax.sql.DataSource;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Repository
 public class UserRepository {
+    @Autowired
+     private DataSource dataSource;
 
-    private List<User> users = new ArrayList<>();
+    public void createUser(User user){
+        String sql = "INSERT INTO user (name, email, password) VALUES (?, ?, ?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPassword());
 
-    public void save(User user){
-        users.add(user);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public User findByEmail(String email){
-        return users.stream()
-                .filter(u -> u.getEmail().equals(email))
-                .findFirst()
-                .orElse(null);
+    public User findUserByAccountCredentials(String email, String password){
+        User user = null;
+        String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, email);
+            statement.setString(2, password);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    user.setId(resultSet.getLong("id"));
+                    user.setName(resultSet.getString("name"));
+                    user.setEmail(resultSet.getString("email"));
+                    user.setPassword(resultSet.getString("password"));
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
-    public List<User> findUser(){
-        return users;
+    public User findByUserId(Long id){
+        User user = null;
+        String sql = "SELECT * FROM user WHERE id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    user.setId(resultSet.getLong("id"));
+                    user.setName(resultSet.getString("name"));
+                    user.setEmail(resultSet.getString("email"));
+                    user.setPassword(resultSet.getString("password"));
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

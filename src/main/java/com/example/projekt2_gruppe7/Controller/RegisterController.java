@@ -12,7 +12,7 @@ import com.example.projekt2_gruppe7.service.UserService;
 public class RegisterController {
 
 
-private final com.example.projekt2_gruppe7.service.UserService userService;
+private final UserService userService;
 
 public RegisterController(UserService userService){
 this.userService = userService;
@@ -31,7 +31,7 @@ this.userService = userService;
         return "register";
     }
     try {
-        userService.registerUser(userDTO);
+        userService.registerUser();
         return "redirect:/login";
     }catch (Exception e){
         model.addAttribute("errorMessage",e.getMessage());
