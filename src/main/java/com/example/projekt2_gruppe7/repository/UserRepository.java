@@ -24,7 +24,7 @@ public class UserRepository {
         }
     }
 
-    public User findUserByAccountCredentials(String email, String password){
+    public User findUserByEmailAndPassword(String email, String password){
         User user = null;
         String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
 
@@ -51,7 +51,7 @@ public class UserRepository {
 
     public User findByUserId(Long id){
         User user = null;
-        String sql = "SELECT * FROM user WHERE id = ?";
+        String sql = "SELECT id FROM user WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -72,4 +72,28 @@ public class UserRepository {
         }
         return user;
     }
+
+    public User findUserByEmail(String email) {
+        User user = null;
+        String sql = "SELECT email FROM user WHERE email = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    user.setId(resultSet.getLong("id"));
+                    user.setName(resultSet.getString("name"));
+                    user.setEmail(resultSet.getString("email"));
+                    user.setPassword(resultSet.getString("password"));
+                    return user;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

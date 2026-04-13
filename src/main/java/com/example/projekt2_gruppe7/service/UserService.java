@@ -12,22 +12,40 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-
     }
 
-    public String registerUser(User user) {
-        if (user.getEmail() == null || user.getEmail().isEmpty()) {
-            return "Email mangler";
+    private Boolean validateEmail(String email){
+        User user = userRepository.findUserByEmail(email);
 
+        if(user == null){
+            return true;
         }
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            return "Password mangler";
+        return false;
+    }
+    private Boolean validatePassword(String password){
 
+        if(password.matches(".*[0-9].*") || password.length()>=8){
+            return true;
         }
-        if (userRepository.existsByEmail(user.getEmail())) {
-            return "Bruger findes allerede";
+        return false;
+    }
+
+    public void registerUser(String name, String email, String password) {
+        Boolean passwordValidated = validatePassword(password);
+        Boolean emailValidated = validateEmail(email);
+        User user = new User(name, email, password);
+
+        if(passwordValidated || emailValidated){
+        userRepository.createUser(user);
         }
-        userRepository.save(user);
-        return "Bruger oprettet!";
+    }
+
+    public User getUser(String email, String password){
+        User user = null;
+        Boolean passwordvalidated = validatePassword(password);
+
+        if(passwordvalidated){ user = userRepository.findUserByEmailAndPassword(email, password); }
+
+        return user;
     }
 }
