@@ -1,6 +1,5 @@
 package com.example.projekt2_gruppe7.Controller;
 
-import com.example.projekt2_gruppe7.Data.UserDTO;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;

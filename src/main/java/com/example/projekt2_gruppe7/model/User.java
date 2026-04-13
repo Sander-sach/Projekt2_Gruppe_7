@@ -7,11 +7,11 @@ public class User {
     private String password;
 
 
-    public User(String name, String email, String password, List<WishList> wishLists) {
+    // skal opdateres med List<WishList> wishLists
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.wishLists = wishLists;
     }
     public void setId(Long id) {
         this.id = id;
@@ -44,5 +44,4 @@ public class User {
     public String getPassword() {
         return password;
     }
-
 }
