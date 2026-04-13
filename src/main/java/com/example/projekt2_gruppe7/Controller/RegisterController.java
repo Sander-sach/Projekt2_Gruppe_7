@@ -1,16 +1,18 @@
 package com.example.projekt2_gruppe7.Controller;
 
-import com.example.projekt2_gruppe7.service.UserService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import com.example.projekt2_gruppe7.service.UserService;
 
+@Controller
 public class RegisterController {
 
-    // mangler en UserService
-private final UserService userService;
+
+private final com.example.projekt2_gruppe7.service.UserService userService;
 
 public RegisterController(UserService userService){
 this.userService = userService;
@@ -29,7 +31,7 @@ this.userService = userService;
         return "register";
     }
     try {
-        userService.registerUser();
+        userService.registerUser(userDTO);
         return "redirect:/login";
     }catch (Exception e){
         model.addAttribute("errorMessage",e.getMessage());
