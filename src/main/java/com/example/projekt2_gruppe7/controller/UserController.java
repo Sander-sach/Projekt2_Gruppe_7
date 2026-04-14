@@ -12,7 +12,6 @@ import com.example.projekt2_gruppe7.service.UserService;
 @Controller
 public class UserController {
 
-
     private final UserService userService;
 
     @Autowired
@@ -20,24 +19,25 @@ public class UserController {
     this.userService = userService;
 }
     // http://localhost:8080/frontpage/register (Hvis man skal åbne hjemmesiden skal main køre og dette skrives i browseren.
-    @GetMapping("/frontpage/register")
+
+    @GetMapping("/register")
         public String registerForm(){
         return "register";
     }
 
-    @PostMapping("/frontpage/register")
+    @PostMapping("/register")
     public String registerUser(@RequestParam String name, @RequestParam String email, @RequestParam String password) {
         userService.registerUser(name, email, password);
-        return "redirect:/frontpage";
+        return "redirect:/";
     }
     //localhost:8080/frontpage/loginform for at åbne siden.
-    @GetMapping("/frontpage/loginform")
+    @GetMapping("/loginform")
     public String loginForm(Model model){
 
         return "loginform";
     }
 
-    @PostMapping("/frontpage/loginform")
+    @PostMapping("/loginform")
     public String userLogin(@RequestParam String email, @RequestParam String password, Model model, HttpSession session){
         User user = userService.getUser(email, password);
 
@@ -58,8 +58,8 @@ public class UserController {
 
     return "userpage";
     }
-    // til når vi får gang i en frontpagr
-    @GetMapping("/frontpage")
+    // til når vi får gang i en frontpage
+    @GetMapping("/")
     public String frontpage() {
         return "frontpage";
     }

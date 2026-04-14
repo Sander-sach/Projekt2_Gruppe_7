@@ -19,7 +19,7 @@
             Forkert email eller adgangskode
         </div>
 
-        <form th:action="@{/frontpage/loginform/}" method="post">
+        <form th:action="@{/loginform}" method="post">
 
             <div class="form-group">
                 <label>Email</label>
@@ -36,7 +36,7 @@
 
         <div class="card-footer">
             <p>Ingen konto?
-                <a th:href="@{/frontpage/register}">Opret her</a>
+                <a th:href="@{/register}">Opret her</a>
             </p>
         </div>
 

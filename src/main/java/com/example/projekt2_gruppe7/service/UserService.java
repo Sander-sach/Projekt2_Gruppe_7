@@ -44,7 +44,7 @@ public class UserService {
         User user = null;
         Boolean passwordvalidated = validatePassword(password);
 
-        if(passwordvalidated){ user = userRepository.findUserByEmailAndPassword(email, password); }
+        if(passwordvalidated){ user = userRepository.findUserByEmailAndPassword(email, password);}
 
         return user;
     }

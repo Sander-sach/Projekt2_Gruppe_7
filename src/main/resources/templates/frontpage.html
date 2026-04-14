@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="page-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <h1>Log ind</h1>
+        </div>
+        <!-- Fejl -->
+        <div th:if="${error}" class="alert alert-error">
+            Forkert email eller adgangskode
+        </div>
+        <form th:action="@{/loginform}" method="post">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Adgangskode</label>
+                <input type="password" name="password" required>
+            </div>
+            <button class="btn btn-primary">Log ind</button>
+        </form>
+        <div class="card-footer">
+            <p>Ingen konto?
+                <a th:href="@{/register}">Opret her</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
