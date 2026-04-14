@@ -8,7 +8,8 @@ public class Wish {
     private Double price;
     private String itemURL;
 
-    public Wish(Long wishListId, String itemName, String description, Double price, String itemURL) {
+    public Wish(Long id,Long wishListId, String itemName, String description, Double price, String itemURL) {
+        this.id = id;
         this.wishListId = wishListId;
         this.itemName = itemName;
         this.description = description;
