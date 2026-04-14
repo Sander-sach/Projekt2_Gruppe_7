@@ -8,7 +8,8 @@ public class User {
 
 
     // skal opdateres med List<WishList> wishLists
-    public User(String name, String email, String password) {
+    public User(Long id, String name, String email, String password) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -16,10 +17,13 @@ public class User {
     // Tom Constructer til SQL
     public User() {
     }
-
-    public void setId(Long id) {
-        this.id = id;
+    // til oprettelse
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
+
 
     public void setName(String name) {
         this.name = name;

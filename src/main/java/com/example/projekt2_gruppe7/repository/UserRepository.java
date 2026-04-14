@@ -36,11 +36,11 @@ public class UserRepository {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new User();
-                    user.setId(resultSet.getLong("id"));
-                    user.setName(resultSet.getString("name"));
-                    user.setEmail(resultSet.getString("email"));
-                    user.setPassword(resultSet.getString("password"));
+
+                    Long id = (resultSet.getLong("id"));
+                    String name = (resultSet.getString("name"));
+
+                    user = new User(id, name, email, password);
                 }
             }
         }catch (SQLException e) {
@@ -51,7 +51,7 @@ public class UserRepository {
 
     public User findByUserId(Long id){
         User user = null;
-        String sql = "SELECT id FROM user WHERE id = ?";
+        String sql = "SELECT * FROM user WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -60,11 +60,12 @@ public class UserRepository {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new User();
-                    user.setId(resultSet.getLong("id"));
-                    user.setName(resultSet.getString("name"));
-                    user.setEmail(resultSet.getString("email"));
-                    user.setPassword(resultSet.getString("password"));
+
+
+                   String name = (resultSet.getString("name"));
+                   String email = (resultSet.getString("email"));
+                   String password = (resultSet.getString("password"));
+                    user = new User(id, name, email, password);
                 }
             }
         }catch (SQLException e) {
@@ -82,11 +83,12 @@ public class UserRepository {
             statement.setString(1, email);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new User();
-                    user.setId(resultSet.getLong("id"));
-                    user.setName(resultSet.getString("name"));
-                    user.setEmail(resultSet.getString("email"));
-                    user.setPassword(resultSet.getString("password"));
+
+                    Long id = (resultSet.getLong("id"));
+                    String name = (resultSet.getString("name"));
+                    String password = (resultSet.getString("password"));
+
+                    user = new User(id, name, email, password);
                     return user;
                 }
             }
