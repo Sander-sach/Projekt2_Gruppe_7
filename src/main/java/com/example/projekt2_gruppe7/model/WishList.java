@@ -5,15 +5,15 @@ import java.util.List;
 public class WishList {
     private Long id;
     private Long userId;
-    private String listName;
+    private String name;
     private String description;
     private List<Wish> wishes;
 
-    public WishList(Long userId, String listName, String description, List<Wish> wishes) {
+    public WishList(Long id, Long userId, String name, String description) {
+        this.id = id;
         this.userId = userId;
-        this.listName = listName;
+        this.name = name;
         this.description = description;
-        this.wishes = wishes;
     }
 
     public WishList() {
@@ -27,8 +27,8 @@ public class WishList {
         return userId;
     }
 
-    public String getListName() {
-        return listName;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
@@ -39,8 +39,8 @@ public class WishList {
         return wishes;
     }
 
-    public void setListName(String listName) {
-        this.listName = listName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {
