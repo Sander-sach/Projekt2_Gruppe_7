@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Min side</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
+
+<div class="page-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <h1>Velkommen</h1>
+            <p th:text="${user.name}"></p>
+        </div>
+
+        <div>
+            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+        </div>
+
+        <br>
+
+        <a th:href="@{/frontpage/loginform/}">
+            <button class="btn">Log ud</button>
+        </a>
+
+    </div>
+</div>
 
 </body>
 </html>

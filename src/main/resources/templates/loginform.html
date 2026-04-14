@@ -2,9 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opret konto – Ønskeseddel</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
 
@@ -12,88 +11,33 @@
     <div class="card">
 
         <div class="card-header">
-            <h1>Opret konto</h1>
-            <p>Udfyld felterne nedenfor for at komme i gang</p>
+            <h1>Log ind</h1>
         </div>
 
-        <form th:action="@{/register}" th:object="${userDTO}" method="post">
+        <!-- Fejl -->
+        <div th:if="${error}" class="alert alert-error">
+            Forkert email eller adgangskode
+        </div>
 
-            <!-- Globale fejlbeskeder (fx duplikat email) -->
-            <div class="alert alert-error" th:if="${errorMessage}">
-                <span th:text="${errorMessage}"></span>
-            </div>
+        <form th:action="@{/frontpage/loginform/}" method="post">
 
-            <!-- Navn -->
             <div class="form-group">
-                <label for="name">Navn</label>
-                <input
-                        type="text"
-                        id="name"
-                        th:field="*{name}"
-                        placeholder="Dit fulde navn"
-                        autocomplete="name"
-                />
-                <span class="field-error"
-                      th:if="${#fields.hasErrors('name')}"
-                      th:errors="*{name}">
-                </span>
+                <label>Email</label>
+                <input type="email" name="email" required>
             </div>
 
-            <!-- Email -->
             <div class="form-group">
-                <label for="email">E-mail</label>
-                <input
-                        type="email"
-                        id="email"
-                        th:field="*{email}"
-                        placeholder="din@email.dk"
-                        autocomplete="email"
-                />
-                <span class="field-error"
-                      th:if="${#fields.hasErrors('email')}"
-                      th:errors="*{email}">
-                </span>
+                <label>Adgangskode</label>
+                <input type="password" name="password" required>
             </div>
 
-            <!-- Adgangskode -->
-            <div class="form-group">
-                <label for="password">Adgangskode</label>
-                <input
-                        type="password"
-                        id="password"
-                        th:field="*{password}"
-                        placeholder="Mindst 8 tegn"
-                        autocomplete="new-password"
-                />
-                <span class="field-error"
-                      th:if="${#fields.hasErrors('password')}"
-                      th:errors="*{password}">
-                </span>
-            </div>
-
-            <!-- Bekræft adgangskode -->
-            <div class="form-group">
-                <label for="confirmPassword">Bekræft adgangskode</label>
-                <input
-                        type="password"
-                        id="confirmPassword"
-                        th:field="*{confirmPassword}"
-                        placeholder="Gentag din adgangskode"
-                        autocomplete="new-password"
-                />
-                <span class="field-error"
-                      th:if="${#fields.hasErrors('confirmPassword')}"
-                      th:errors="*{confirmPassword}">
-                </span>
-            </div>
-
-            <!-- Submit -->
-            <button type="submit" class="btn btn-primary">Opret konto</button>
-
+            <button class="btn btn-primary">Log ind</button>
         </form>
 
         <div class="card-footer">
-            <p>Har du allerede en konto? <a th:href="@{/login}">Log ind her</a></p>
+            <p>Ingen konto?
+                <a th:href="@{/frontpage/register}">Opret her</a>
+            </p>
         </div>
 
     </div>
