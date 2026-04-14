@@ -54,11 +54,6 @@ public class UserController {
     public String userPage(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
 
-        //if() stops direct URL login with no user loaded in session.
-        if (user == null) {
-            model.addAttribute("error", true);
-            return "loginform";
-        }
         model.addAttribute("user", user);
 
     return "userpage";

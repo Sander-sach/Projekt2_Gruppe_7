@@ -14,10 +14,10 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    // Tom Constructer til SQL
+    // til Controller
     public User() {
     }
-    // til oprettelse
+    // til SQL
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
