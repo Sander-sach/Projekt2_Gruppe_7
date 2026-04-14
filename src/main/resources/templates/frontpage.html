@@ -2,38 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>frontpage</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a th:href="@{/}">WishList</a>
+    </div>
+    <ul class="navbar-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+        <li><a th:href="@{/register}" class="btn-nav">Register</a></li>
+    </ul>
+</nav>
 
-<div class="page-wrapper">
-    <div class="card">
-
-        <div class="card-header">
-            <h1>Log ind</h1>
-        </div>
-        <!-- Fejl -->
-        <div th:if="${error}" class="alert alert-error">
-            Forkert email eller adgangskode
-        </div>
-        <form th:action="@{/loginform}" method="post">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label>Adgangskode</label>
-                <input type="password" name="password" required>
-            </div>
-            <button class="btn btn-primary">Log ind</button>
-        </form>
-        <div class="card-footer">
-            <p>Ingen konto?
-                <a th:href="@{/register}">Opret her</a>
-            </p>
+<main class="hero">
+    <div class="hero-text">
+        <h1>Your Wishlists,<br>All in One Place</h1>
+        <p>Create, share, and manage wishlists with friends and family — effortlessly.</p>
+        <div class="hero-actions">
+            <a th:href="@{/register}" class="btn btn-primary">Get Started</a>
+            <a th:href="@{/login}" class="btn">Login</a>
         </div>
     </div>
-</div>
+    <div class="hero-image">
+        <img th:src="@{/wishlist-app_image.webp}" alt="Wishlist app preview">
+    </div>
+</main>
+
 </body>
 </html>

@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@RequestParam String name, @RequestParam String email, @RequestParam String password) {
         userService.registerUser(name, email, password);
-        return "redirect:/";
+        return "redirect:/loginform";
     }
     //localhost:8080/frontpage/loginform for at åbne siden.
     @GetMapping("/loginform")

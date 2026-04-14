@@ -35,7 +35,7 @@ public class UserService {
         Boolean emailValidated = validateEmail(email);
         User user = new User(name, email, password);
 
-        if(passwordValidated || emailValidated){
+        if(passwordValidated && emailValidated){
         userRepository.createUser(user);
         }
     }

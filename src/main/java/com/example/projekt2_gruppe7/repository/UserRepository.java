@@ -18,6 +18,7 @@ public class UserRepository {
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
+            statement.executeUpdate();
 
         }catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +77,7 @@ public class UserRepository {
 
     public User findUserByEmail(String email) {
         User user = null;
-        String sql = "SELECT email FROM user WHERE email = ?";
+        String sql = "SELECT * FROM user WHERE email = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
