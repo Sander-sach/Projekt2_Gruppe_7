@@ -19,7 +19,7 @@ public class UserController {
     public UserController(UserService userService){
     this.userService = userService;
 }
-
+    // http://localhost:8080/frontpage/register (Hvis man skal åbne hjemmesiden skal main køre og dette skrives i browseren.
     @GetMapping("/frontpage/register")
         public String registerForm(){
         return "register";
@@ -30,13 +30,14 @@ public class UserController {
         userService.registerUser(name, email, password);
         return "redirect:/frontpage";
     }
-    @GetMapping("/frontpage/loginform/")
+    //localhost:8080/frontpage/loginform for at åbne siden.
+    @GetMapping("/frontpage/loginform")
     public String loginForm(Model model){
 
         return "loginform";
     }
 
-    @PostMapping("/frontpage/loginform/")
+    @PostMapping("/frontpage/loginform")
     public String userLogin(@RequestParam String email, @RequestParam String password, Model model, HttpSession session){
         User user = userService.getUser(email, password);
 
@@ -48,7 +49,7 @@ public class UserController {
         model.addAttribute("error", true);
     return "loginform";
     }
-
+    //locashost:8080/userpage
     @GetMapping("/userpage")
     public String userPage(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
@@ -61,5 +62,10 @@ public class UserController {
         model.addAttribute("user", user);
 
     return "userpage";
+    }
+    // til når vi får gang i en frontpagr
+    @GetMapping("/frontpage")
+    public String frontpage() {
+        return "frontpage";
     }
 }
