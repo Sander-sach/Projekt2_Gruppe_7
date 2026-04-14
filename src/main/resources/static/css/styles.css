@@ -1,0 +1,150 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Background */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #e0f2fe, #60a5fa);
+    min-height: 100vh;
+}
+
+/* Wrapper */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Card */
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 35px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Header */
+.card-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.card-header h1 {
+    color: #1e3a8a;
+    font-size: 1.8rem;
+}
+
+.card-header p {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #1e3a8a;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #cbd5f5;
+    background: #f8fafc;
+    transition: 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: white;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(59,130,246,0.3);
+}
+
+/* Secondary button */
+.btn:not(.btn-primary) {
+    background: #e0f2fe;
+    color: #1e3a8a;
+}
+
+.btn:not(.btn-primary):hover {
+    background: #bae6fd;
+}
+
+/* Footer */
+.card-footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.card-footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Alerts */
+.alert {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Field errors */
+.field-error {
+    color: #dc2626;
+    font-size: 0.85rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
