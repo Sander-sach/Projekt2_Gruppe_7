@@ -26,6 +26,7 @@ public class WishRepository {
             statement.setString(3, wish.getDescription());
             statement.setDouble(4, wish.getPrice());
             statement.setString(5, wish.getItemURL());
+            statement.executeUpdate();
 
         }catch (SQLException e) {
             e.printStackTrace();

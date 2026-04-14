@@ -28,6 +28,7 @@ public class WishListRepository {
             statement.setLong(2, wishList.getUserId());
             statement.setString(3, wishList.getName());
             statement.setString(4, wishList.getDescription());
+            statement.executeUpdate();
 
         }catch (SQLException e) {
             e.printStackTrace();
