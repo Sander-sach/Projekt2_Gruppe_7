@@ -62,7 +62,7 @@ class UserServiceTest {
         userService.registerUser(name, email, password);
         verify(userRepository, never()).createUser(any(User.class));
     }
-    @Test
+    @Test // getUser metode - tjek om det virker
     void getUser_validCredentials_shouldReturnUser(){
         String name = "Allan";
         String email = "Allan@mail.dk";
