@@ -77,7 +77,7 @@ class UserServiceTest {
         assertEquals(expectedUser,result);
         assertNotNull(result);
     }
-    @Test
+    @Test // tester getUser -ugyldigt Password, repository må ikke kaldes
     void getUser_indvalidPassword_shouldReturNull(){
         String name = "Tobias";
         String email ="tobias@mail.dk";
