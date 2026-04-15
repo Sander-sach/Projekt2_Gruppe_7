@@ -77,5 +77,17 @@ class UserServiceTest {
         assertEquals(expectedUser,result);
         assertNotNull(result);
     }
+    @Test
+    void getUser_indvalidPassword_shouldReturNull(){
+        String name = "Tobias";
+        String email ="tobias@mail.dk";
+        String password = "ABC";
+
+        User result = userService.getUser(email, password);
+
+        assertNull(result);
+
+        verify(userRepository, never()).findUserByEmailAndPassword(anyString(), anyString());
+    }
 
     }
