@@ -1,4 +1,4 @@
-package com.example.projekt2_gruppe7.controller;
+package com.example.projekt2_gruppe7.Controller;
 
 import com.example.projekt2_gruppe7.model.User;
 import jakarta.servlet.http.HttpSession;
