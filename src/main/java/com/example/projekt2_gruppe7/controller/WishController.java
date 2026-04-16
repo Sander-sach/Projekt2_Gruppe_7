@@ -25,7 +25,7 @@ public class WishController {
     // localhost:8080/createWish?wishlistId=1
     @GetMapping("/createWish")
     public String createWishForm(@RequestParam Long wishlistId, Model model, HttpSession session) {
-
+// test
         User user = (User) session.getAttribute("user");
 
         if (user == null) {

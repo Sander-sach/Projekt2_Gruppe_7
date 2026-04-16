@@ -32,7 +32,7 @@ public class WishListController {
             return "redirect:/loginform";
         }
 
-        return "createWishlist";
+        return "createWishList";
     }
 
     @PostMapping("/createWishlist")
@@ -52,7 +52,7 @@ public class WishListController {
                 description == null || description.trim().isEmpty()) {
 
             model.addAttribute("error", true);
-            return "createWishlist";
+            return "createWishList";
         }
 
         // bruger konstruktør
@@ -70,12 +70,12 @@ public class WishListController {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            return "redirect:/loginform";
+        return "redirect:/loginform";
         }
 
         WishList wishList = wishListService.getWishListById(wishlistId);
 
         model.addAttribute("wishList", wishList);
-        return "wishlist";
+        return "createWishList";
     }
 }

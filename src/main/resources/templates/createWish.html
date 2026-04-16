@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tilføj ønske</title>
+  <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a th:href="@{/}">WishList</a>
+  </div>
+  <ul class="navbar-links">
+    <li><a th:href="@{/wishlist}">Min ønskeseddel</a></li>
+    <li><a th:href="@{/logout}" class="btn-nav">Log ud</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrapper">
+  <div class="card">
+
+    <div class="card-header">
+      <h1>Tilføj ønske</h1>
+      <p>Udfyld oplysningerne om dit nye ønske</p>
+    </div>
+
+    <!-- Fejlbesked hvis påkrævede felter er tomme -->
+    <div class="alert alert-error" th:if="${error}">
+      Udfyld venligst navn og beskrivelse.
+    </div>
+
+    <form th:action="@{/createWish}" method="post">
+
+      <!-- Skjult felt så wishlistId følger med i POST -->
+      <input type="hidden" name="wishlistId" th:value="${wishlistId}"/>
+
+      <div class="form-group">
+        <label for="itemName">Navn på ønske *</label>
+        <input type="text"
+               id="itemName"
+               name="itemName"
+               placeholder="f.eks. Nike Air Max"/>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Beskrivelse *</label>
+        <input type="text"
+               id="description"
+               name="description"
+               placeholder="f.eks. Størrelse 42, sort"/>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Pris (kr.) <span th:style="'color:#64748b; font-weight:400'">(valgfri)</span></label>
+        <input type="number"
+               id="price"
+               name="price"
+               placeholder="0"
+               step="0.01"/>
+      </div>
+
+      <div class="form-group">
+        <label for="itemURL">Link <span th:style="'color:#64748b; font-weight:400'">(valgfri)</span></label>
+        <input type="url"
+               id="itemURL"
+               name="itemURL"
+               placeholder="https://..."/>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Tilføj ønske</button>
+
+    </form>
+
+    <div class="card-footer">
+      <a th:href="@{/wishlist/{id}(id=${wishlistId})}">Annuller og gå tilbage</a>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
