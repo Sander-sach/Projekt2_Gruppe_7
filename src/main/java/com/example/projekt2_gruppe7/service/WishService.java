@@ -28,4 +28,28 @@ public class WishService {
     public Wish getWishById(Long id) {
         return wishRepository.findWishById(id);
     }
+
+    //Service til reserveWish
+    public boolean reserveWish(Long wishId) {
+
+        Wish wish = wishRepository.findWishById(wishId);
+
+        // hvis ønsket ikke findes
+        if (wish == null) {
+            return false;
+        }
+
+        // hvis allerede reserveret (forhindrer dobbeltreservation)
+        if (wish.isReserved()) {
+            return false;
+        }
+
+        // reserver ønsket
+        wish.setReserved(true);
+
+        // gem i databasen (brug jeres metode)
+        wishRepository.createWish(wish); // eller updateWish hvis I har den
+
+        return true;
+    }
 }

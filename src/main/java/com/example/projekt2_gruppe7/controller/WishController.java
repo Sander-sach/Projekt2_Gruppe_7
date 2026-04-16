@@ -68,4 +68,13 @@ public class WishController {
         // Redirect tilbage til wishlist (så ønsket vises)
         return "redirect:/wishlist/" + wishlistId;
     }
+
+    //brugt til reserveWish
+    @PostMapping("/reserveWish")
+    public String reserveWish(@RequestParam Long wishId) {
+
+        wishService.reserveWish(wishId);
+
+        return "redirect:/";
+    }
 }
