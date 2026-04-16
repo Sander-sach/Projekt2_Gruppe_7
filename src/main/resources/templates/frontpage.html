@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>frontpage</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a th:href="@{/}">WishList</a>
+    </div>
+    <ul class="navbar-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+        <li><a th:href="@{/register}" class="btn-nav">Register</a></li>
+    </ul>
+</nav>
+
+<main class="hero">
+    <div class="hero-text">
+        <h1>Your Wishlists,<br>All in One Place</h1>
+        <p>Create, share, and manage wishlists with friends and family — effortlessly.</p>
+        <div class="hero-actions">
+            <a th:href="@{/register}" class="btn btn-primary">Get Started</a>
+            <a th:href="@{/login}" class="btn">Login</a>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img th:src="@{/wishlist-app_image.webp}" alt="Wishlist app preview">
+    </div>
+</main>
+
+</body>
+</html>
