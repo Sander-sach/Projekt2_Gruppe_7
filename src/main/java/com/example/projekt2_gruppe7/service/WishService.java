@@ -28,4 +28,8 @@ public class WishService {
     public Wish getWishById(Long id) {
         return wishRepository.findWishById(id);
     }
+    //NYT TIL REDIGERING AF ØNSKE
+    public void updateWishName(Long wishId, String itemName) {
+        wishRepository.updateWishName(wishId, itemName);
+    }
 }

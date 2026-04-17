@@ -89,5 +89,20 @@ public class WishRepository {
         }
         return wish;
     }
-}
 
+    //NYT TIL REDIGERING AF ØNSKE
+    public void updateWishName(Long wishId, String itemName) {
+        String sql = "UPDATE wish SET item_name = ? WHERE id = ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, itemName);
+            statement.setLong(2, wishId);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
