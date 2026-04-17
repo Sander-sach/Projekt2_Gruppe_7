@@ -106,4 +106,14 @@ public class WishController {
         Wish wish = wishService.getWishById(wishId);
         return "redirect:/wishlist/" + wish.getWishListId();
     }
+
+    //Nyt til reserveWish
+    @PostMapping("/reserveWish")
+    public String reserveWish(@RequestParam Long wishId) {
+
+        wishService.reserveWish(wishId);
+
+        return "redirect:/";
+    }
+
 }
