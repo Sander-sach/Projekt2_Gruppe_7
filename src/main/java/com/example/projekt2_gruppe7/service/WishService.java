@@ -28,7 +28,33 @@ public class WishService {
     public Wish getWishById(Long id) {
         return wishRepository.findWishById(id);
     }
+    //NYT TIL REDIGERING AF ØNSKE
+    public void updateWishName(Long wishId, String itemName) {
+        wishRepository.updateWishName(wishId, itemName);
+    }
 
-    public void deleteWish(long wishId){ wishRepository.deleteWishById(wishId);}
- }
+    //nyt til reserveWish
+    public boolean reserveWish(Long wishId) {
 
+        Wish wish = wishRepository.findWishById(wishId);
+
+        // hvis ønsket ikke findes
+        if (wish == null) {
+            return false;
+        }
+
+        // hvis allerede reserveret (forhindrer dobbeltreservation)
+        if (wish.isReserved()) {
+            return false;
+        }
+
+        // reserver ønsket
+        wish.setReserved(true);
+
+        // gem i databasen (brug jeres metode)
+        wishRepository.createWish(wish); // eller updateWish hvis I har den
+
+        return true;
+    }
+
+}

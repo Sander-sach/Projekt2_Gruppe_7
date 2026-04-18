@@ -89,18 +89,20 @@ public class WishRepository {
         }
         return wish;
     }
-    public void deleteWishById(Long wishId){
-        String sql = "DELETE FROM wish WHERE id = ?";
+
+    //NYT TIL REDIGERING AF ØNSKE
+    public void updateWishName(Long wishId, String itemName) {
+        String sql = "UPDATE wish SET item_name = ? WHERE id = ?";
 
         try (Connection connection = dataSource.getConnection();
-        PreparedStatement statement = connection.prepareStatement(sql)){
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setLong(1,wishId);
+            statement.setString(1, itemName);
+            statement.setLong(2, wishId);
             statement.executeUpdate();
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 }
-

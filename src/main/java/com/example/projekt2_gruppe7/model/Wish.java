@@ -59,4 +59,14 @@ public class Wish {
     public void setItemURL(String itemURL) {
         this.itemURL = itemURL;
     }
+    //kode tilføjet til reserveWish
+    private boolean reserved = false;
+
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
 }

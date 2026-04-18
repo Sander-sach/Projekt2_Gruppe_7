@@ -21,11 +21,9 @@ public class WishController {
     public WishController(WishService wishService) {
         this.wishService = wishService;
     }
-
     // localhost:8080/createWish?wishlistId=1
     @GetMapping("/createWish")
     public String createWishForm(@RequestParam Long wishlistId, Model model, HttpSession session) {
-// test
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
@@ -51,7 +49,6 @@ public class WishController {
             return "redirect:/loginform";
         }
 
-        // Validering (Acceptance criteria: tomme felter afvises)
         if (itemName == null || itemName.trim().isEmpty() ||
                 description == null || description.trim().isEmpty()) {
 
@@ -60,25 +57,63 @@ public class WishController {
             return "createWish";
         }
 
-        // bruger konstruktør (ingen setter til wishListId!)
         Wish wish = new Wish(null, wishlistId, itemName, description, price, itemURL);
-
         wishService.createWish(wish);
 
-        // Redirect tilbage til wishlist (så ønsket vises)
         return "redirect:/wishlist/" + wishlistId;
     }
-    @PostMapping("/deleteWish")
-    public String deleteWish(@RequestParam long wishId,@RequestParam long wishlistId, HttpSession session) {
 
-        User user = (User)session.getAttribute("user");
+    //NYT TIL REDIGERING AF ØNSKE
+
+    // GET - vis redigeringssiden for et ønske
+    // localhost:8080/editWish?wishId=1
+    @GetMapping("/editWish")
+    public String editWishForm(@RequestParam Long wishId, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
         if (user == null) {
-
-            return  "redirect:/loginform";
+            return "redirect:/loginform";
         }
-        wishService.deleteWish(wishId);
-        return "redirect:/wishlist/" + wishlistId;
 
+        Wish wish = wishService.getWishById(wishId);
+        model.addAttribute("wish", wish);
+        return "editWish";
+    }
+
+    // PUT - opdater navn/titel på et ønske
+    // localhost:8080/editWish?wishId=1
+    @PostMapping("/editWish")
+    public String updateWishName(@RequestParam Long wishId,
+                                 @RequestParam String itemName,
+                                 HttpSession session,
+                                 Model model) {
+
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            return "redirect:/loginform";
+        }
+
+        if (itemName == null || itemName.trim().isEmpty()) {
+            Wish wish = wishService.getWishById(wishId);
+            model.addAttribute("wish", wish);
+            model.addAttribute("error", true);
+            return "editWish";
+        }
+
+        wishService.updateWishName(wishId, itemName);
+
+        Wish wish = wishService.getWishById(wishId);
+        return "redirect:/wishlist/" + wish.getWishListId();
+    }
+
+    //Nyt til reserveWish
+    @PostMapping("/reserveWish")
+    public String reserveWish(@RequestParam Long wishId) {
+
+        wishService.reserveWish(wishId);
+
+        return "redirect:/";
     }
 
 }
