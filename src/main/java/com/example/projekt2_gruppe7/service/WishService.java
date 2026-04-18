@@ -28,4 +28,7 @@ public class WishService {
     public Wish getWishById(Long id) {
         return wishRepository.findWishById(id);
     }
-}
+
+    public void deleteWish(long wishId){ wishRepository.deleteWishById(wishId);}
+ }
+

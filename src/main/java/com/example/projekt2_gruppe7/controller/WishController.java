@@ -68,4 +68,17 @@ public class WishController {
         // Redirect tilbage til wishlist (så ønsket vises)
         return "redirect:/wishlist/" + wishlistId;
     }
+    @PostMapping("/deleteWish")
+    public String deleteWish(@RequestParam long wishId,@RequestParam long wishlistId, HttpSession session) {
+
+        User user = (User)session.getAttribute("user");
+        if (user == null) {
+
+            return  "redirect:/loginform";
+        }
+        wishService.deleteWish(wishId);
+        return "redirect:/wishlist/" + wishlistId;
+
+    }
+
 }
