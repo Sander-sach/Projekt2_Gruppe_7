@@ -56,5 +56,6 @@ public class WishService {
 
         return true;
     }
-
+    // Slet ønske
+    public void deleteWish(long wishId){ wishRepository.deleteWishById(wishId);}
 }
