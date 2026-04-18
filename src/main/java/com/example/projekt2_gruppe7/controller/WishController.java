@@ -115,5 +115,18 @@ public class WishController {
 
         return "redirect:/";
     }
+    // Slet ønske
+    @PostMapping("/deleteWish")
+    public String deleteWish(@RequestParam long wishId,@RequestParam long wishlistId, HttpSession session) {
+
+        User user = (User)session.getAttribute("user");
+        if (user == null) {
+
+            return  "redirect:/loginform";
+        }
+        wishService.deleteWish(wishId);
+        return "redirect:/wishlist/" + wishlistId;
+    }
+
 
 }
