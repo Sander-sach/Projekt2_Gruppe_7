@@ -1,6 +1,8 @@
-package com.example.projekt2_gruppe7.Controller;
+package com.example.projekt2_gruppe7.controller;
 
 import com.example.projekt2_gruppe7.model.User;
+import com.example.projekt2_gruppe7.model.WishList;
+import com.example.projekt2_gruppe7.service.WishListService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,15 +10,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.projekt2_gruppe7.service.UserService;
 
+import java.util.List;
+
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final WishListService wishListService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, WishListService wishListService){
     this.userService = userService;
+    this.wishListService = wishListService;
 }
     // http://localhost:8080/frontpage/register (Hvis man skal åbne hjemmesiden skal main køre og dette skrives i browseren.
 
@@ -53,7 +59,9 @@ public class UserController {
     @GetMapping("/userpage")
     public String userPage(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
+        List<WishList> wishLists = wishListService.getWishListsByUser(user.getId());
 
+        model.addAttribute("wishList", wishLists);
         model.addAttribute("user", user);
 
     return "userpage";

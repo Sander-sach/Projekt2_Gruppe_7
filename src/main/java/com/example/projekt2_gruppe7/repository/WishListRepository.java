@@ -20,14 +20,13 @@ public class WishListRepository {
     private DataSource dataSource;
 
     public void createWishList(WishList wishList){
-        String sql = "INSERT INTO wishlist (id, user_id, name, description) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO wishlist (user_id, name, description) VALUES(?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setLong(1, wishList.getId());
-            statement.setLong(2, wishList.getUserId());
-            statement.setString(3, wishList.getName());
-            statement.setString(4, wishList.getDescription());
+            statement.setLong(1, wishList.getUserId());
+            statement.setString(2, wishList.getName());
+            statement.setString(3, wishList.getDescription());
             statement.executeUpdate();
 
         }catch (SQLException e) {
@@ -38,7 +37,7 @@ public class WishListRepository {
     public List<WishList> findWishListsByUser(Long userId){
             List<WishList> wishLists = new ArrayList<>();
 
-            String sql = "SELECT * FROM wishlists WHERE user_id = ?";
+            String sql = "SELECT * FROM wishlist WHERE user_id = ?";
 
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement statement = connection.prepareStatement(sql)) {

@@ -22,15 +22,16 @@ public class WishListController {
     private final WishListService wishListService;
     private final WishService wishService;
 
+
     @Autowired
-    public WishListController(WishListService wishListService,WishService wishService) {
+    public WishListController(WishListService wishListService, WishService wishService) {
         this.wishListService = wishListService;
         this.wishService = wishService;
     }
 
     // localhost:8080/createWishlist
-    @GetMapping("/createWishlist")
-    public String createWishListForm(Model model, HttpSession session) {
+    @GetMapping("/createWishList")
+    public String createWishListForm(HttpSession session) {
 
         User user = (User) session.getAttribute("user");
 
@@ -41,7 +42,7 @@ public class WishListController {
         return "createWishList";
     }
 
-    @PostMapping("/createWishlist")
+    @PostMapping("/createWishList")
     public String createWishList(@RequestParam String name,
                                  @RequestParam String description,
                                  HttpSession session,
@@ -58,7 +59,7 @@ public class WishListController {
                 description == null || description.trim().isEmpty()) {
 
             model.addAttribute("error", true);
-            return "createWishList";
+            return "userpage";
         }
 
         // bruger konstruktør
@@ -67,24 +68,37 @@ public class WishListController {
         wishListService.createWishList(wishList);
 
         // Redirect til brugerens wishlists
-        return "redirect:/wishlists/" + user.getId();
+        return "redirect:/userpage?userId=" + user.getId();
     }
 
-    @GetMapping("/wishlist")
-    public String viewWishList(@RequestParam Long wishlistId, Model model, HttpSession session) {
+    @GetMapping("/WishListsCreated")
+    public String viewWishList(@RequestParam Long userId, Model model, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
         if (user == null) {
         return "redirect:/loginform";
         }
 
+        List<WishList> wishLists = wishListService.getWishListsByUser(userId);
+
+        model.addAttribute("wishList", wishLists);
+
+        return "userpage";
+    }
+    @GetMapping("/WishList")
+    public String viewWishes(@RequestParam Long wishlistId, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/loginform";
+        }
+
         WishList wishList = wishListService.getWishListById(wishlistId);
         List<Wish> wishes = wishService.getWishesByListId(wishlistId);
 
-        model.addAttribute("wishList", wishList);
+        model.addAttribute("WishList", wishList);
         model.addAttribute("wishes", wishes);
-        model.addAttribute("wishListId", wishlistId);
+        model.addAttribute("WishListId", wishlistId);
 
-        return "createWishList";
+        return "WishList";
     }
 }

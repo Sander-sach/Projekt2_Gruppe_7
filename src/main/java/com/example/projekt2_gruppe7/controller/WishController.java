@@ -60,7 +60,7 @@ public class WishController {
         Wish wish = new Wish(null, wishlistId, itemName, description, price, itemURL);
         wishService.createWish(wish);
 
-        return "redirect:/wishlist/" + wishlistId;
+        return "redirect:/userpage?userId=" + user.getId();
     }
 
     //NYT TIL REDIGERING AF ØNSKE
@@ -125,7 +125,7 @@ public class WishController {
             return  "redirect:/loginform";
         }
         wishService.deleteWish(wishId);
-        return "redirect:/wishlist?wishlistId=" + wishlistId;
+        return "redirect:/userpage?userId=" + user.getId();
     }
 
 

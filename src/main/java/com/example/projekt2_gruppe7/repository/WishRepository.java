@@ -24,7 +24,11 @@ public class WishRepository {
             statement.setLong(1, wish.getWishListId());
             statement.setString(2, wish.getItemName());
             statement.setString(3, wish.getDescription());
-            statement.setDouble(4, wish.getPrice());
+            if (wish.getPrice() != null) {
+                statement.setDouble(4, wish.getPrice());
+            } else {
+                statement.setNull(4, java.sql.Types.DOUBLE);
+            }
             statement.setString(5, wish.getItemURL());
             statement.executeUpdate();
 

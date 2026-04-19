@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delt ønskeseddel</title>
+    <title>Ønskeseddel</title>
     <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
@@ -13,67 +13,64 @@
         <a th:href="@{/}">WishList</a>
     </div>
     <ul class="navbar-links">
-        <li><a th:href="@{/wishlist}">Min ønskeseddel</a></li>
+        <li><a th:href="@{/userpage}">Min side</a></li>
         <li><a th:href="@{/logout}" class="btn-nav">Log ud</a></li>
     </ul>
 </nav>
 
-<div class="page-wrapper">
-    <div class="card wishlist-view-card">
+<div class="userpage-wrapper">
 
-        <div class="card-header">
-            <h1>Delt ønskeseddel</h1>
-            <p>Her kan du se ønsker og reservere dem</p>
+    <div class="wishlist-section">
+
+        <div class="section-header">
+            <h2 th:text="${WishList != null} ? ${WishList.name} : 'Ønskeseddel'">Ønskeseddel</h2>
+            <a th:href="@{/createWish(wishlistId=${WishListId})}" class="btn btn-primary">+ Tilføj ønske</a>
         </div>
 
-        <div class="wishlist-list">
-            <div class="wish-row" th:each="wish : ${wishes}">
-                <div class="wish-info">
-                    <h3 th:text="${wish.itemName}">Ønske navn</h3>
-                    <p>
-                        Status:
-                        <span class="wish-status reserved" th:if="${wish.reserved}">Reserveret</span>
-                        <span class="wish-status available" th:unless="${wish.reserved}">Ledig</span>
-                    </p>
-                </div>
+        <!-- Wishes grid -->
+        <div class="wishlist-grid" th:if="${!#lists.isEmpty(wishes)}">
+            <div class="wishlist-card" th:each="wish : ${wishes}">
 
-                <div class="wish-action">
-                    <!-- Reserver -->
-                    <form th:if="${!wish.reserved}" th:action="@{/reserveWish}" method="post">
-                        <input type="hidden" name="wishId" th:value="${wish.id}">
-                        <button type="submit" class="btn btn-primary reserve-btn">Reserver</button>
-                    </form>
+                <h3 th:text="${wish.itemName}">Ønske navn</h3>
+                <p th:text="${wish.description}">Beskrivelse</p>
 
-                    <span class="already-reserved-text" th:if="${wish.reserved}">
-                        Kan ikke reserveres
-                    </span>
+                <p th:if="${wish.price != null}">
+                    Pris: <span th:text="${wish.price} + ' kr.'">0 kr.</span>
+                </p>
 
-                    <!-- Rediger (US-6) -->
-                    <a th:href="@{/editWish(wishId=${wish.id})}"
-                       class="btn btn-secondary btn-sm">Rediger</a>
+                <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
 
-                    <!-- Slet (US-7) -->
+                    <!-- Rediger -->
+                    <a th:href="@{/editWish(wishId=${wish.id})}" class="btn">Rediger</a>
+
+                    <!-- Slet -->
                     <form th:action="@{/deleteWish}" method="post"
                           onsubmit="return confirm('Er du sikker på at du vil slette dette ønske?')">
-                        <input type="hidden" name="wishId"     th:value="${wish.id}">
-                        <input type="hidden" name="wishlistId" th:value="${wishlistId}">
-                        <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                        <input type="hidden" name="wishId" th:value="${wish.id}">
+                        <input type="hidden" name="wishlistId" th:value="${WishListId}">
+                        <button type="submit" class="btn" style="color: #dc2626;">Slet</button>
                     </form>
-                </div>
-            </div>
 
-            <!-- Vis besked hvis listen er tom -->
-            <div class="empty-state" th:if="${#lists.isEmpty(wishes)}">
-                <div class="empty-state-icon">🎁</div>
-                <p>Ingen ønsker på denne liste endnu</p>
+                </div>
             </div>
         </div>
 
-        <div class="card-footer">
-            <a th:href="@{/}">Gå tilbage</a>
+        <!-- Empty state -->
+        <div class="placeholder-card" th:if="${#lists.isEmpty(wishes)}">
+            <p>Ingen ønsker på denne liste endnu</p>
+            <br/>
+            <a th:href="@{/createWish(wishlistId=${WishListId})}" class="btn btn-primary"
+               style="width: auto; padding: 10px 24px;">
+                Tilføj første ønske
+            </a>
+        </div>
+
+        <div class="card-footer" style="margin-top: 24px;">
+            <a th:href="@{/WishList(userId=${WishList.userId})}">← Tilbage til mine ønskesedler</a>
         </div>
 
     </div>
+
 </div>
 
 </body>
