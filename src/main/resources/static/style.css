@@ -333,3 +333,62 @@ input:focus {
         transform: translateY(0);
     }
 }
+/* Shared wishlist view */
+.wishlist-view-card {
+    max-width: 700px;
+}
+
+.wishlist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.wish-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 18px;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    background: #f0f7ff;
+}
+
+.wish-info h3 {
+    color: #1e3a8a;
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.wish-info p {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.wish-status {
+    font-weight: 600;
+}
+
+.wish-status.reserved {
+    color: #dc2626;
+}
+
+.wish-status.available {
+    color: #16a34a;
+}
+
+.wish-action {
+    min-width: 140px;
+    text-align: right;
+}
+
+.reserve-btn {
+    width: auto;
+    padding: 10px 18px;
+}
+
+.already-reserved-text {
+    color: #64748b;
+    font-size: 0.9rem;
+}

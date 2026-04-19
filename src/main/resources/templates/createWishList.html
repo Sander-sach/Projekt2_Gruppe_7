@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opret ønskeseddel</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a th:href="@{/}">WishList</a>
+    </div>
+    <ul class="navbar-links">
+        <li><a th:href="@{/wishlist}">Min ønskeseddel</a></li>
+        <li><a th:href="@{/logout}" class="btn-nav">Log ud</a></li>
+    </ul>
+</nav>
+
+<div class="page-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <h1>Opret ønskeseddel</h1>
+            <p>Giv din ønskeseddel et navn og en beskrivelse</p>
+        </div>
+
+        <!-- Fejlbesked hvis felter er tomme -->
+        <div class="alert alert-error" th:if="${error}">
+            Udfyld venligst alle felter.
+        </div>
+
+        <form th:action="@{/createWishlist}" method="post">
+
+            <div class="form-group">
+                <label for="name">Navn</label>
+                <input type="text"
+                       id="name"
+                       name="name"
+                       placeholder="f.eks. Fødselsdag 2025"/>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Beskrivelse</label>
+                <input type="text"
+                       id="description"
+                       name="description"
+                       placeholder="Hvad handler denne ønskeseddel om?"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Opret ønskeseddel</button>
+
+        </form>
+
+        <div class="card-footer">
+            <a th:href="@{/}">Annuller og gå tilbage</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

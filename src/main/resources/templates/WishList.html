@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delt ønskeseddel</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a th:href="@{/}">WishList</a>
+    </div>
+    <ul class="navbar-links">
+        <li><a th:href="@{/wishlist}">Min ønskeseddel</a></li>
+        <li><a th:href="@{/logout}" class="btn-nav">Log ud</a></li>
+    </ul>
+</nav>
+
+<div class="page-wrapper">
+    <div class="card wishlist-view-card">
+
+        <div class="card-header">
+            <h1>Delt ønskeseddel</h1>
+            <p>Her kan du se ønsker og reservere dem</p>
+        </div>
+
+        <div class="wishlist-list">
+            <div class="wish-row" th:each="wish : ${wishes}">
+                <div class="wish-info">
+                    <h3 th:text="${wish.itemName}">Ønske navn</h3>
+                    <p>
+                        Status:
+                        <span class="wish-status reserved" th:if="${wish.reserved}">Reserveret</span>
+                        <span class="wish-status available" th:unless="${wish.reserved}">Ledig</span>
+                    </p>
+                </div>
+
+                <div class="wish-action">
+                    <!-- Reserver -->
+                    <form th:if="${!wish.reserved}" th:action="@{/reserveWish}" method="post">
+                        <input type="hidden" name="wishId" th:value="${wish.id}">
+                        <button type="submit" class="btn btn-primary reserve-btn">Reserver</button>
+                    </form>
+
+                    <span class="already-reserved-text" th:if="${wish.reserved}">
+                        Kan ikke reserveres
+                    </span>
+
+                    <!-- Rediger (US-6) -->
+                    <a th:href="@{/editWish(wishId=${wish.id})}"
+                       class="btn btn-secondary btn-sm">Rediger</a>
+
+                    <!-- Slet (US-7) -->
+                    <form th:action="@{/deleteWish}" method="post"
+                          onsubmit="return confirm('Er du sikker på at du vil slette dette ønske?')">
+                        <input type="hidden" name="wishId"     th:value="${wish.id}">
+                        <input type="hidden" name="wishlistId" th:value="${wishlistId}">
+                        <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Vis besked hvis listen er tom -->
+            <div class="empty-state" th:if="${#lists.isEmpty(wishes)}">
+                <div class="empty-state-icon">🎁</div>
+                <p>Ingen ønsker på denne liste endnu</p>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <a th:href="@{/}">Gå tilbage</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
