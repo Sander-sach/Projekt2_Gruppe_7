@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Min side</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a th:href="@{/}">WishList</a>
+    </div>
+    <ul class="navbar-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/loginform}">Log ud</a></li>
+    </ul>
+</nav>
+
+<div class="userpage-wrapper">
+    <!-- Profile card -->
+    <div class="card user-card">
+        <div class="card-header">
+            <h1 th:text="${user.name}">Brugernavn</h1>
+        </div>
+    </div>
+
+    <!-- Wishlist section -->
+    <section class="wishlist-section">
+        <div class="section-header">
+            <h2>My Wishlists</h2>
+            <a th:href="@{/wishlist/new}" class="btn btn-primary">+ New list</a>
+        </div>
+
+        <!-- Populated once wishlists are wired up -->
+        <div class="wishlist-grid">
+            <!-- th:each="wishlist : ${user.wishLists}" -->
+            <div class="wishlist-card placeholder-card">
+                <a th:href="@{/wishlist/new}" class="btn btn-primary" style="margin-top:14px;">Create your wishlist</a>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
