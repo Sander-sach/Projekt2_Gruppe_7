@@ -29,7 +29,7 @@
         <div class="wishlist-list">
             <div class="wish-row" th:each="wish : ${wishes}">
                 <div class="wish-info">
-                    <h3 th:text="${wish.name}">Ønske navn</h3>
+                    <h3 th:text="${wish.itemName}">Ønske navn</h3>
                     <p>
                         Status:
                         <span class="wish-status reserved" th:if="${wish.reserved}">Reserveret</span>
@@ -38,6 +38,7 @@
                 </div>
 
                 <div class="wish-action">
+                    <!-- Reserver -->
                     <form th:if="${!wish.reserved}" th:action="@{/reserveWish}" method="post">
                         <input type="hidden" name="wishId" th:value="${wish.id}">
                         <button type="submit" class="btn btn-primary reserve-btn">Reserver</button>
@@ -46,7 +47,25 @@
                     <span class="already-reserved-text" th:if="${wish.reserved}">
                         Kan ikke reserveres
                     </span>
+
+                    <!-- Rediger (US-6) -->
+                    <a th:href="@{/editWish(wishId=${wish.id})}"
+                       class="btn btn-secondary btn-sm">Rediger</a>
+
+                    <!-- Slet (US-7) -->
+                    <form th:action="@{/deleteWish}" method="post"
+                          onsubmit="return confirm('Er du sikker på at du vil slette dette ønske?')">
+                        <input type="hidden" name="wishId"     th:value="${wish.id}">
+                        <input type="hidden" name="wishlistId" th:value="${wishlistId}">
+                        <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                    </form>
                 </div>
+            </div>
+
+            <!-- Vis besked hvis listen er tom -->
+            <div class="empty-state" th:if="${#lists.isEmpty(wishes)}">
+                <div class="empty-state-icon">🎁</div>
+                <p>Ingen ønsker på denne liste endnu</p>
             </div>
         </div>
 

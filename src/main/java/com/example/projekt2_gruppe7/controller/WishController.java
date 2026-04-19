@@ -54,7 +54,7 @@ public class WishController {
 
             model.addAttribute("error", true);
             model.addAttribute("wishlistId", wishlistId);
-            return "createWish";
+            return "redirect:/wishlist?wishlistId=" + wishlistId;
         }
 
         Wish wish = new Wish(null, wishlistId, itemName, description, price, itemURL);
@@ -104,7 +104,7 @@ public class WishController {
         wishService.updateWishName(wishId, itemName);
 
         Wish wish = wishService.getWishById(wishId);
-        return "redirect:/wishlist/" + wish.getWishListId();
+        return "redirect:/wishlist?wishlistId=" + wish.getWishListId();
     }
 
     //Nyt til reserveWish
@@ -125,7 +125,7 @@ public class WishController {
             return  "redirect:/loginform";
         }
         wishService.deleteWish(wishId);
-        return "redirect:/wishlist/" + wishlistId;
+        return "redirect:/wishlist?wishlistId=" + wishlistId;
     }
 
 
