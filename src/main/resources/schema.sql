@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS wishlistdb;
+
 USE wishlistdb;
 
 CREATE TABLE IF NOT EXISTS user (
@@ -24,6 +26,9 @@ CREATE TABLE IF NOT EXISTS wish (
     item_url varchar(500) DEFAULT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (wishlist_id) REFERENCES wishlist (id));
+
+INSERT INTO user (name, email, password)
+VALUES ('testUser', 'test@test.com', 'test1234');
 
 
 

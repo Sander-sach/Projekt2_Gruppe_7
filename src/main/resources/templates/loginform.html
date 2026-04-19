@@ -22,13 +22,13 @@
         <form th:action="@{/loginform}" method="post">
 
             <div class="form-group">
-                <label>type: test@test.com</label>
-                <input type="email" name="email" required>
+                <label>Email</label>
+                <input type="email" name="email" value="test@test.com" required>
             </div>
 
             <div class="form-group">
-                <label>type: test1234</label>
-                <input type="password" name="password" required>
+                <label>Adgangskode</label>
+                <input type="password" name="password" value="test1234" required>
             </div>
 
             <button class="btn btn-primary">Log ind</button>
