@@ -28,7 +28,7 @@ public class WishController {
 
         if (user == null) {
             return "redirect:/loginform";
-        }
+       }
 
         model.addAttribute("wishlistId", wishlistId);
         return "createWish";

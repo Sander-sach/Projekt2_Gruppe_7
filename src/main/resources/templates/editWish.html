@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rediger ønske</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a th:href="@{/}">WishList</a>
+    </div>
+    <ul class="navbar-links">
+        <li><a th:href="@{/wishlist}">Min ønskeseddel</a></li>
+        <li><a th:href="@{/logout}" class="btn-nav">Log ud</a></li>
+    </ul>
+</nav>
+
+<div class="page-wrapper">
+    <div class="card">
+
+        <div class="card-header">
+            <h1>Rediger ønske</h1>
+            <p>Opdater oplysningerne om dit ønske</p>
+        </div>
+
+        <!-- Fejlbesked hvis påkrævede felter er tomme -->
+        <div class="alert alert-error" th:if="${error}">
+            Udfyld venligst navn på ønsket.
+        </div>
+
+        <form th:action="@{/editWish}" method="post">
+
+            <!-- Skjult felt så wishId følger med i POST -->
+            <input type="hidden" name="wishId" th:value="${wish.id}"/>
+
+            <div class="form-group">
+                <label for="itemName">Navn på ønske *</label>
+                <input type="text"
+                       id="itemName"
+                       name="itemName"
+                       th:value="${wish.itemName}"
+                       placeholder="f.eks. Nike Air Max"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Gem ændringer</button>
+
+        </form>
+
+        <div class="card-footer">
+            <a th:href="@{/wishlist(wishlistId=${wish.wishListId})}">Annuller og gå tilbage</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
